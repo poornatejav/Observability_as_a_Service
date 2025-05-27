@@ -1,0 +1,17 @@
+version: '3'
+services:
+  ingestion:
+    build: ../backend
+    ports:
+      - "8080:8080"
+
+  agent:
+    build: ../agent
+    environment:
+      TELEMETRY_ENDPOINT: "http://ingestion:8080/ingest"
+
+  dashboard:
+    build:
+      context: ../dashboard
+    ports:
+      - "3000:80"
